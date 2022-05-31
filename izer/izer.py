@@ -202,6 +202,7 @@ def main():
     min_layer = args.start_layer
     ll = args.start_layer
     while ll < layers:
+        print(str(ll))
         if in_sequences[ll] is not None:
             assert isinstance(in_sequences[ll], list)
             if params['eltwise'][ll] == op.NONE:
@@ -399,6 +400,7 @@ def main():
             eprint(f'{layer_pfx(ll)}`output_width` must be 8 when activation is used.')
 
     while ll < layers:
+        print(str(ll) + " " + str(input_dim[ll]))
         if input_channels[ll] <= 0:
             eprint(f'{layer_pfx(ll)}`in_channels` is required.')
         if quantization[ll] is None:
@@ -653,7 +655,11 @@ def main():
     assert module is not None
     be = module.Backend()
 
+    print("Backend OK")
+
     tn = be.create_net()
+    print("Create NET OK")
+
     if not args.embedded_code and args.autogen.lower() != 'none':
         rtlsim.append_regression(
             args.top_level,
